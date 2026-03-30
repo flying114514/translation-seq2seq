@@ -58,3 +58,10 @@ class TranslationDecoder(nn.Module):
         # output在线性层和词表对应
         # output.shape: [batch_size, 1, vocab_size]
         return output, hidden_n
+
+
+class TranslationModel(nn.Module):
+    def __init__(self, zh_vocab_size, en_vocab_size, zh_padding_index, en_padding_index):
+        super().__init__()
+        self.encoder = TranslationEncoder(zh_vocab_size, zh_padding_index)
+        self.decoder = TranslationDecoder(en_vocab_size, en_padding_index)
