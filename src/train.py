@@ -65,8 +65,8 @@ def train():
     model = (TranslationModel(zh_Tokenizer.vocab_size, en_Tokenizer.vocab_size,
                               zh_Tokenizer.pad_token_index, en_Tokenizer.pad_token_index)
              .to(device))
-    # 损失函数
-    loss_fn = torch.nn.CrossEntropyLoss()
+    # 损失函数,en_Tokenizer.pad_token_index这个目标值不会贡献在loss的计算中
+    loss_fn = torch.nn.CrossEntropyLoss(ignore_index=en_Tokenizer.pad_token_index)
     # 优化器
     optimizer = torch.optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
     # TensorBoard Writer

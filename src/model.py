@@ -23,7 +23,7 @@ class TranslationEncoder(nn.Module):
         # 每批样本的最后一个非pad的时间步的输出作为文本的表示
         # lengths是一批样本中每个文本的实际长度,也就是非pad的时间步的数量,它的形状是[batch_size]
         lengths = (x != self.embedding.padding_idx).sum(dim=1)
-        last_hidden_state = output[[torch.arange(output.shape[0])], lengths - 1]
+        last_hidden_state = output[torch.arange(output.shape[0]), lengths - 1]
         # last_hidden_state.shape: [batch_size, hidden_size]
         return last_hidden_state
 
